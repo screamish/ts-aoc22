@@ -22,8 +22,6 @@ export const mostCalories = (input: string) : number => {
   const b = A.concat(a[0], [a[1]])
   const c = A.map(b, A.reduce(0, N.add))
 
-  console.log(c)
-
   return A.reduce(0, (a : number, b : number) : number => a > b ? a : b)(c)
   // return pipe(
   //   input.split('\n'),
@@ -51,8 +49,6 @@ export const mostCaloriesTop3 = (input: string) : number => {
   const sum = A.reduce(0, N.add)
   const c = A.map(b, sum)
   const d = A.sort(c, (a : number, b : number) : number => a - b)
-
-  // console.log(d)
 
   return pipe(d, A.reverse, A.take(3), sum)
 }

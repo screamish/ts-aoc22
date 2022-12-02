@@ -34,7 +34,7 @@ const file = readFileSync('./src/day1/data.txt', 'utf-8');
 
 test('can get answer for part 1', async t => {
     let result = mostCalories(file)
-    t.is(result, 0)
+    t.is(result, 70369)
 })
 
 test('can get the top 3 most calories', async t => {
@@ -44,5 +44,5 @@ test('can get the top 3 most calories', async t => {
 
 test('can get answer for part 2', async t => {
     let result = mostCaloriesTop3(file)
-    t.is(result, 0)
+    t.is(result, 203002)
 })
