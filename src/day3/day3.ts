@@ -29,3 +29,21 @@ export const sumPriorities = (input: string) : number => {
   // console.log(itemPriorities)
   return A.reduce(itemPriorities, 0, (sum, n) => sum + n)
 }
+
+const findBadges = (items:string) :  readonly string[] => {
+  return pipe(
+    items.split('\n'),
+    A.splitEvery(3),
+    A.map(trios => A.map(trios, (sack: string) => Set.of(...sack.split('')))),
+    A.map(trios => Set.intersect(trios)),
+    A.map(badges => badges.join(''))
+  )
+}
+
+export const sumPrioritiesOfBadges = (input: string) : number => {
+  const badges = findBadges(input)
+  // console.log(badges)
+  const priorities = A.map(badges, itemPriority)
+  // console.log(priorities)
+  return A.reduce(priorities, 0, (sum, n) => sum + n)
+}
