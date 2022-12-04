@@ -15,11 +15,11 @@ const parseLine = (input:string) : Set<number>[] => {
   )
 }
 
-const anyPairwiseWith = <X>(sets: Set<X>[], p: (a: Set<X>, b: Set<X>) => boolean ) : boolean => {
+const anyPairwiseWith = <X>(array: X[], p: (a: X, b: X) => boolean ) : boolean => {
   // A.forEach(sets, s => console.log(s.toArray()))
   return pipe(
-    sets,
-    A.mapWithIndex((i, s) => A.any(A.removeAt(sets, i), ss => p(s, ss))),
+    array,
+    A.mapWithIndex((i, s) => A.any(A.removeAt(array, i), ss => p(s, ss))),
     A.any(i => i)
   )
 }
