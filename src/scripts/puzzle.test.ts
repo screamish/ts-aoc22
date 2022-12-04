@@ -10,7 +10,7 @@ let input = `
 test('can pass the spec in the instructions for part 1', async t => {
   let result = go(input)
 
-  t.is(result, -1)
+  t.is(result, 0)
 })
 
 const file = readFileSync(path.join(__dirname,'./data.txt'), 'utf-8').trim();
@@ -23,7 +23,7 @@ test('can get answer for part 1', async t => {
 test('can pass the spec in the instructions for part 2', async t => {
   let result = go2(input)
 
-  t.is(result, -1)
+  t.is(result, 0)
 })
 
 test('can get answer for part 2', async t => {
