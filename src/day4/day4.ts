@@ -15,7 +15,7 @@ const parseLine = (input:string) : Set<number>[] => {
   )
 }
 
-const overlapping = (sets: Set<number>[]) : boolean => {
+const completelyOverlapping = (sets: Set<number>[]) : boolean => {
   // A.forEach(sets, s => console.log(s.toArray()))
   return pipe(
     sets,
@@ -26,7 +26,24 @@ const overlapping = (sets: Set<number>[]) : boolean => {
   )
 }
 
+const overlapping = (sets: Set<number>[]) : boolean => {
+  // A.forEach(sets, s => console.log(s.toArray()))
+  return pipe(
+    sets,
+    A.mapWithIndex((i, s) => A.any(A.removeAt(sets, i), ss => {
+      return !s.intersect(ss).isEmpty()
+    })),
+    A.any(i => i)
+  )
+}
+
 export const go = (input: string) : number => {
+  const ranges = A.map(input.split('\n'), parseLine)
+  // console.log(ranges)
+  return A.filter(ranges, completelyOverlapping).length
+}
+
+export const go2 = (input: string) : number => {
   const ranges = A.map(input.split('\n'), parseLine)
   // console.log(ranges)
   return A.filter(ranges, overlapping).length

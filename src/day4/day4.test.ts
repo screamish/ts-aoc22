@@ -1,5 +1,5 @@
 import test from 'ava'
-import { go } from './day4'
+import { go, go2 } from './day4'
 import { readFileSync } from 'fs';
 
 test.before(async t => {
@@ -26,4 +26,15 @@ const file = readFileSync('./src/day4/data.txt', 'utf-8').trim();
 test('can get answer for part 1', async t => {
     let result = go(file)
     t.is(result, 459)
+})
+
+test('can find partially overlapping ranges', async t => {
+  let result = go2(input)
+
+  t.is(result, 4)
+})
+
+test('can get answer for part 2', async t => {
+    let result = go2(file)
+    t.is(result, 779)
 })
