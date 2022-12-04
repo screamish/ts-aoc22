@@ -4,7 +4,7 @@ import path from 'path'
 /**
  * Creates the boilerplate code for a new puzzle
  * Usage: npm run init-day {dayNumber} i.e npm run 1
- * It will create a new folder under src/days/{dayNumber}
+ * It will create a new folder under src/day{dayNumber}
  * with the boilerplate code to build the solution, and an empty input .txt file.
  */
 
