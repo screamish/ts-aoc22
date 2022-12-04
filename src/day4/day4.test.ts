@@ -2,10 +2,6 @@ import test from 'ava'
 import { go, go2 } from './day4'
 import { readFileSync } from 'fs';
 
-test.before(async t => {
-  console.log('Day4 tests!')
-})
-
 let input = `
 2-4,6-8
 2-3,4-5

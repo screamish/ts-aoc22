@@ -2,10 +2,6 @@ import test from 'ava'
 import { sumPriorities, sumPrioritiesOfBadges } from './day3'
 import { readFileSync } from 'fs';
 
-test.before(async t => {
-  console.log('Day3 tests!')
-})
-
 let input = `
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL

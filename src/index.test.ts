@@ -2,10 +2,6 @@ import test from 'ava'
 
 import { orderPizza } from './index'
 
-test.before(async t => {
-  console.log('Starting tests!')
-})
-
 test('can order a pizza', async t => {
 
   let result = await orderPizza({

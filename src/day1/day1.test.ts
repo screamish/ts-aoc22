@@ -2,10 +2,6 @@ import test from 'ava'
 import { mostCalories, mostCaloriesTop3 } from './day1'
 import { readFileSync } from 'fs';
 
-test.before(async t => {
-  console.log('Day1 tests!')
-})
-
 let input = `
 1000
 2000

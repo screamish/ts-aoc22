@@ -2,10 +2,6 @@ import test from 'ava'
 import { score, scorePart2 } from './day2'
 import { readFileSync } from 'fs';
 
-test.before(async t => {
-  console.log('Day2 tests!')
-})
-
 let input = `
 A Y
 B X
