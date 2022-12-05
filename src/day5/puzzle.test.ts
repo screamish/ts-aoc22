@@ -43,11 +43,10 @@ test('can get answer for part 1', async t => {
 
 test('can pass the spec in the instructions for part 2', async t => {
   let result = go2(stack, moves)
-
-  t.is(result, '')
+  t.is(result, 'MCD')
 })
 
 test('can get answer for part 2', async t => {
-  let result = go2(stack, moves)
-  t.is(result, '')
+  let result = go2(stacksFile, movesFile)
+  t.is(result, 'GNFBSBJLH')
 })

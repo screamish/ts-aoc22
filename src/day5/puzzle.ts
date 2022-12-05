@@ -71,7 +71,6 @@ const performMovesOnStacks = (stacks: Stack<string>[], moves: Move[]) : Stack<st
         // console.log(`after move ${JSON.stringify(move)}`)
         // printStacks(stacks)
     })
-    printStacks(stacks)
     return stacks
 }
 
@@ -83,20 +82,42 @@ const getTopCrate = (stacks: Stack<string>[]) : string => {
     )
 }
 
-export const go = (stackInput:string, movesInput:string) : string => {
+export const inner = (f: (stacks: Stack<string>[], moves: Move[]) => Stack<string>[] ) => 
+                            (stackInput:string, movesInput:string) : string => {
     const stacks = parseStack(stackInput)
     const moves = parseMoves(movesInput)
-    // console.log('WHATTTTTTTTTTTTT')
-    // console.log(stacks)
-    printStacks(stacks)
-
     // console.log(moves)
 
-    const result = performMovesOnStacks(stacks, moves)
+    // console.log(`Stacks at the start`)
+    // printStacks(stacks)
+
+    const result = f(stacks, moves)
+
+    // console.log(`Stacks after performing moves`)
+    // printStacks(stacks)
 
     return getTopCrate(result)
 }
 
-export const go2 = (stack:string, moves:string) : string => {
-    return ''
+export const go = inner(performMovesOnStacks)
+
+// Hilarious. the part 2 today made the fact that I chose Stacks a complete waste of time!
+// Ah well, it wasn't too hard to bust out of the Stacks back into Arrays to actually do
+// the work for this part.
+const performMovesOnStacks9001 = (stacks: Stack<string>[], moves: Move[]) : Stack<string>[] => {
+    A.forEach(moves, move => {
+        const from = move.from - 1
+        const to = move.to - 1
+
+        const moving = (stacks[from] || Stack()).toArray()
+        const [toMove, remain] = F.toMutable(O.getExn(A.splitAt(moving, move.quantity)))
+
+        stacks[to] = (stacks[to] || Stack()).unshift(...toMove)
+        stacks[from] = Stack(remain)
+        // console.log(`after move ${JSON.stringify(move)}`)
+        // printStacks(stacks)
+    })
+    return stacks
 }
+
+export const go2 = inner(performMovesOnStacks9001)
