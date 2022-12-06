@@ -22,8 +22,9 @@ const inner = (windowSize: number) => (input:string) : number => {
         A.find(window =>
             pipe(
                 window,
-                A.map(([i, s]) => s), s => Set.of(...s),
-                (vals) => vals.count() === window.length
+                // I wish I knew more ways to work nicely with tuples in typescript
+                A.map(([i, s]) => s),
+                s => Set.of(...s).count() === window.length
             )
         )
     )
