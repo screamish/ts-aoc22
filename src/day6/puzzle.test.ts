@@ -44,5 +44,5 @@ test('can pass the spec in the instructions for part 2', async t => {
 
 test('can get answer for part 2', async t => {
     let result = go2(file)
-    t.is(result, 0)
+    t.is(result, 2263)
 })
