@@ -33,16 +33,16 @@ const file = readFileSync(path.join(__dirname,'./data.txt'), 'utf-8').trim();
 
 test('can get answer for part 1', async t => {
     let result = go(file)
-    t.is(result, 0)
+    t.is(result, 1134)
 })
 
-// test('can pass the spec in the instructions for part 2', async t => {
-//   let result = go2(input)
+test('can pass the spec in the instructions for part 2', async t => {
+  let result = go2(`mjqjpqmgbljsphdztnvjfqwrcgsmlb`)
 
-//   t.is(result, 0)
-// })
+  t.is(result, 19)
+})
 
-// test('can get answer for part 2', async t => {
-//     let result = go2(file)
-//     t.is(result, 0)
-// })
+test('can get answer for part 2', async t => {
+    let result = go2(file)
+    t.is(result, 0)
+})
