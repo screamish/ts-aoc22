@@ -25,6 +25,7 @@
     "init-day": "ts-node ./src/scripts/initDay.ts"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.10",
     "ava": "^5.1.0",
     "pkg": "^5.8.0",
@@ -37,6 +38,7 @@
     "@mobily/ts-belt": "^3.13.1",
     "commander": "^9.4.1",
     "immutable": "^4.1.0",
+    "lodash": "^4.17.21",
     "typescript-collections": "^1.3.3"
   }
 }
