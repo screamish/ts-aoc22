@@ -191,23 +191,23 @@ const walkDir = (dir: any): WalkResult  => {
 
 export const go = (input:string) : number => {
     const dir = parse(input)
-    console.log(`DIR: ${JSON.stringify(dir, null, 2)}`)
+    // console.log(`DIR: ${JSON.stringify(dir, null, 2)}`)
     const sizes = walkDir(dir)
-    console.log(`FLATTENED DIR SIZES: ${JSON.stringify(sizes, null, 2)}`)
+    // console.log(`FLATTENED DIR SIZES: ${JSON.stringify(sizes, null, 2)}`)
     const result = pipe(
         sizes.subdirs,
         D.values,
         A.filter(i => i <= 100000)
     )
-    console.log(`FILTERED DIR SIZES: ${JSON.stringify(result, null, 2)}`)
+    // console.log(`FILTERED DIR SIZES: ${JSON.stringify(result, null, 2)}`)
     return _.sum(result)
 }
 
 export const go2 = (input:string) : number => {
     const dir = parse(input)
-    console.log(`DIR: ${JSON.stringify(dir, null, 2)}`)
+    // console.log(`DIR: ${JSON.stringify(dir, null, 2)}`)
     const sizes = walkDir(dir)
-    console.log(`FLATTENED DIR SIZES: ${JSON.stringify(sizes, null, 2)}`)
+    // console.log(`FLATTENED DIR SIZES: ${JSON.stringify(sizes, null, 2)}`)
     const spaceToFree = Math.abs(70000000 - 30000000 - sizes.size)
     const result = pipe(
         sizes.subdirs,
