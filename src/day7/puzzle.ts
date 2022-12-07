@@ -203,5 +203,18 @@ export const go = (input:string) : number => {
 }
 
 export const go2 = (input:string) : number => {
-    return 0
+    const dir = parse(input)
+    console.log(`DIR: ${JSON.stringify(dir, null, 2)}`)
+    const sizes = walkDir(dir)
+    console.log(`FLATTENED DIR SIZES: ${JSON.stringify(sizes, null, 2)}`)
+    const spaceToFree = Math.abs(70000000 - 30000000 - sizes.size)
+    const result = pipe(
+        sizes.subdirs,
+        D.values,
+        A.filter(i => i > spaceToFree),
+        A.sort((a, b) => a - b),
+        A.head,
+        O.getExn
+    )
+    return result
 }
