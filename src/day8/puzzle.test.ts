@@ -11,7 +11,10 @@ import { go,
   flip,
   walkRight,
   walkUp,
-  MatrixCell } from './puzzle'
+  merger,
+  sceneryScore,
+  MatrixCell, 
+  Coord} from './puzzle'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { Map } from 'immutable'
@@ -112,13 +115,42 @@ test('can get answer for part 1', async t => {
     t.is(result, 1840)
 })
 
-// test('can pass the spec in the instructions for part 2', async t => {
-//   let result = go2(input)
 
-//   t.is(result, 0)
-// })
+const p = (x: number, y: number, d: number) : [Coord, number] =>
+  ([ [x, y], d ])
 
-// test('can get answer for part 2', async t => {
-//     let result = go2(file)
-//     t.is(result, 0)
-// })
+test('can scenery score a single line ', async t => {
+  let result = sceneryScore(inputToMatrix('15425')[0] || [])
+
+  t.deepEqual(result.valueSeq().toArray(), [1,3,2,1,0])
+
+//   t.deepEqual(result.toArray(), [
+//     [ p(0,0,1),
+//       p(0,1,3),
+//       p(0,2,2),
+//       p(0,3,1),
+//       p(0,4,1),
+//     ],
+//   ])
+})
+
+test('merger works', async t => {
+  let input1 = Map([['1,1',2], ['1,2',5]])
+  let input2 = Map([['1,1',3], ['1,2',2]])
+  let result = input1.mergeWith(merger, input2)
+
+  // console.log(`Map result is: ${JSON.stringify(result.entrySeq().toArray())}`)
+
+  t.deepEqual(result.entrySeq().toArray(), [['1,1',6], ['1,2',10]])
+})
+
+test('can pass the spec in the instructions for part 2', async t => {
+  let result = go2(input)
+
+  t.is(result, 8)
+})
+
+test('can get answer for part 2', async t => {
+    let result = go2(file)
+    t.is(result, 405769)
+})

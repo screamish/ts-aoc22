@@ -91,8 +91,85 @@ export const go = (input:string) : number => {
     return result.count()
 }
 
+///// part 2
+
+// return the scenery score looking along the direction of the array for every coord
+// ARRRRRRRRGH I have nfi how these Maps treat tuple types for equality but it don't seem like what I expect
+// back to strings it is
+
+const c2s = (coord: Coord) : string => `${coord[0]}.${coord[1]}`
+
+// I really bashed my head against this for ages. What a waste of effort. There's definitely bugs in here
+// Something to do with the ordering in the array processing gets out of whack I think.
+export const sceneryScoreFunctional = (input:MatrixCell[]) : Map<string, number> => {
+    // const t = Map([[1,2], [2,3]])
+    const zero = Map<string, number>()
+    return pipe(
+        input,
+        A.reduceWithIndex(zero, (acc: Map<string, number>, cell, i) => {
+            const remainder = pipe(input, A.drop(i + 1))
+            const v = pipe(remainder, A.takeWhile(t => t.data < cell.data))
+            // console.log(`The view for:${cell.coord} of height ${cell.data} is: ${JSON.stringify(remainder)}`)
+            const score = A.length(v) + (A.isEmpty(remainder) ? 0 : 1)
+            if(cell.coord[0] === 3 && cell.coord[1] === 2) {
+                console.log(`ROW FOR SCORING: ${JSON.stringify(input)}`)
+                console.log(`REMAINDER:${JSON.stringify(remainder)}`)
+                console.log(`SCORE for:${cell.coord} score:${score} height:${cell.data} view: ${JSON.stringify(v)}`)
+                console.log(`-------------`)
+            }
+            return acc.set(c2s(cell.coord), score)
+        }),
+    )
+}
+
+// In the end this nasty old for loop version came together very quickly and easily
+export const sceneryScore = (input:MatrixCell[]) : Map<string, number> => {
+    // const t = Map([[1,2], [2,3]])
+    const result = Map<string, number>().asMutable()
+    for (let index = 0; index < input.length; index++) {
+        const cell = A.getUnsafe(input, index)
+        let score = 0
+        for (let i2 = index + 1; i2 < input.length; i2++) {
+            const n = input[i2]
+            if (n === undefined) {
+                break
+            }
+            score++
+            if (cell.data <= n.data) {
+                break
+            }
+        }
+        result.set(c2s(cell.coord), score)
+    }
+    return result
+}
+
+export const allScores = (data: MatrixWithData) : Map<string, number> => {
+    const rows = pipe(
+        data,
+        A.map(sceneryScore),
+        F.toMutable
+    )
+    return Map<string, number>().merge(...rows)
+}
+
+export const merger = (oldVal: number, newVal: number, key: any) => {
+    // console.log(`MERGING: key: ${key}, old:${oldVal} new:${newVal}`)
+    return oldVal * newVal
+}
+
 export const go2 = (input:string) : number => {
-    return 0
+    // get tree scenery scores (in x,y co-ords) for each direction
+    const data = inputToMatrix(input)
+    const left = allScores(data)
+    const right = allScores(walkRight(data))
+    const down = allScores(walkDown(data))
+    const up = allScores(walkUp(data))
+
+    // union those sets of co-ords
+    const result = left.mergeWith(merger, right).mergeWith(merger, down).mergeWith(merger, up)
+    // console.log(`FINAL RESULT: ${JSON.stringify(result.valueSeq().toArray(), null, 2)}`)
+    return result.valueSeq().max() || -1
 }
 
 
