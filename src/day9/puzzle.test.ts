@@ -40,11 +40,24 @@ test('can get answer for part 1', async t => {
     t.is(result, 6354)
 })
 
-// test('can pass the spec in the instructions for part 2', async t => {
-//   let result = go2(input)
+const input2 = `
+R 5
+U 8
+L 8
+D 3
+R 17
+D 10
+L 25
+U 20
+`.trim()
 
-//   t.is(result, 0)
-// })
+test('can pass the spec in the instructions for part 2', async t => {
+  let result = go2(input2)
+
+  t.is(result, 36)
+})
+
+// Giving up on this :( ..... for now
 
 // test('can get answer for part 2', async t => {
 //     let result = go2(file)
